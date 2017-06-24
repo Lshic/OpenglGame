@@ -30,10 +30,10 @@ GLfloat LightPosition4[] = { 0.0f, -SkyboxSize / 2.f, -SkyboxSize / 2.f, 1.0f };
 
 void drawRect(GLuint texture) {
 	glEnable(GL_TEXTURE_2D);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);    //Ìì¿ÕºĞ¼Ó»·¾³¹â
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);    //å¤©ç©ºç›’åŠ ç¯å¢ƒå…‰
 	glEnable(GL_COLOR_MATERIAL);
 
-	glBindTexture(GL_TEXTURE_2D, texture);  //Ñ¡ÔñÎÆÀítexture[status]   
+	glBindTexture(GL_TEXTURE_2D, texture);  //é€‰æ‹©çº¹ç†texture[status]   
 	const GLfloat x1 = -0.5, x2 = 0.5;
 	const GLfloat y1 = -0.5, y2 = 0.5;
 	const GLfloat point[4][2] = { { x1,y1 },{ x1,y2 },{ x2,y2 },{ x2,y1 } };
@@ -165,11 +165,11 @@ void initCube(Shader shader) {
 	//Position
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
+	//end position
 	//Normal
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, norm));
-
+	//end normal
 	//Tex2D
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texC));
@@ -219,15 +219,15 @@ void drawCube(Shader shader, GLuint diffuse, GLuint bump, GLuint spec) {
 
 void drawCube(GLuint texture) {
 	glEnable(GL_TEXTURE_2D);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);    //ºĞ×ÓÅö×²Æ÷¼Ó»·¾³¹â
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);    //ç›’å­ç¢°æ’å™¨åŠ ç¯å¢ƒå…‰
 	glEnable(GL_COLOR_MATERIAL);
 	int i, j;
 	const GLfloat x1 = -0.5, x2 = 0.5;
 	const GLfloat y1 = -0.5, y2 = 0.5;
 	const GLfloat z1 = -0.5, z2 = 0.5;
 
-	//Ö¸¶¨Áù¸öÃæµÄËÄ¸ö¶¥µã£¬Ã¿¸ö¶¥µãÓÃ3¸ö×ø±êÖµ±íÊ¾     
-	//Ç° ºó ÉÏ ÏÂ ×ó ÓÒ  
+	//æŒ‡å®šå…­ä¸ªé¢çš„å››ä¸ªé¡¶ç‚¹ï¼Œæ¯ä¸ªé¡¶ç‚¹ç”¨3ä¸ªåæ ‡å€¼è¡¨ç¤º     
+	//å‰ å ä¸Š ä¸‹ å·¦ å³  
 
 	GLfloat point[6][4][3] = {
 		{ { x1,y1,z1 },{ x1,y2,z1 },{ x2,y2,z1 },{ x2,y1,z1 } },
@@ -267,7 +267,7 @@ void drawCube(GLuint texture) {
 }
 
 void drawSkybox(GLuint* texture) {
-	//ÉÏ    
+	//ä¸Š    
 	glPushMatrix();
 	glTranslatef(0.0f, SkyboxSize / 2.0f, 0.0f);
 	glRotatef(270, 1, 0, 0);
@@ -276,7 +276,7 @@ void drawSkybox(GLuint* texture) {
 	drawRect(texture[1]);
 	glPopMatrix();
 
-	//ÏÂ   
+	//ä¸‹   
 	glPushMatrix();
 	glTranslatef(0.0f, -SkyboxSize / 2.0f, 0.0f);
 	glRotatef(90, 1, 0, 0);
@@ -285,7 +285,7 @@ void drawSkybox(GLuint* texture) {
 	drawRect(texture[2]);
 	glPopMatrix();
 
-	//×ó
+	//å·¦
 	glPushMatrix();
 	glTranslatef(-SkyboxSize / 2.0f, 0.0f, 0.0f);
 	glRotatef(270, 0, 1, 0);
@@ -295,7 +295,7 @@ void drawSkybox(GLuint* texture) {
 	drawRect(texture[3]);
 	glPopMatrix();
 
-	//ÓÒ
+	//å³
 	glPushMatrix();
 	glTranslatef(SkyboxSize / 2.0f, 0.0f, 0.0f);
 	glRotatef(90, 0, 1, 0);
@@ -305,7 +305,7 @@ void drawSkybox(GLuint* texture) {
 	drawRect(texture[4]);
 	glPopMatrix();
 
-	//Ç°
+	//å‰
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, -SkyboxSize / 2.0);
 	glRotatef(180, 1, 0, 0);
@@ -314,7 +314,7 @@ void drawSkybox(GLuint* texture) {
 	drawRect(texture[5]);
 	glPopMatrix();
 
-	//ºó
+	//å
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, SkyboxSize / 2.0f);
 	glRotatef(180, 0, 0, 1);
@@ -505,7 +505,7 @@ void drawBreadModels() {
 		if (!isBreadEatenSet[i]) {
 			glPushMatrix();
 
-			// ÉèÖÃÄ£°å»º³åÎª¿ÉĞ´×´Ì¬£¬°Ñ½ÏĞ¡µÄÃæ°ü·ÅÈëÄ£°å»º³å£¨ÉèÎª1£©
+			// è®¾ç½®æ¨¡æ¿ç¼“å†²ä¸ºå¯å†™çŠ¶æ€ï¼ŒæŠŠè¾ƒå°çš„é¢åŒ…æ”¾å…¥æ¨¡æ¿ç¼“å†²ï¼ˆè®¾ä¸º1ï¼‰
 			glStencilFunc(GL_ALWAYS, 1, 0xFF);
 			glStencilMask(0xFF);
 
@@ -516,14 +516,14 @@ void drawBreadModels() {
 			glPopMatrix();
 		}
 
-		//Ä£°å¼ì²â£¬»æÖÆ±ßÔµ
+		//æ¨¡æ¿æ£€æµ‹ï¼Œç»˜åˆ¶è¾¹ç¼˜
 		if (i == closeToBreadIndex) {
 			glPushMatrix();
 
-			// ÉèÖÃÄ£°å»º³åÎª²»¿ÉĞ´×´Ì¬£¬Ö»»æÖÆ != 1 µÄ²¿·Ö
+			// è®¾ç½®æ¨¡æ¿ç¼“å†²ä¸ºä¸å¯å†™çŠ¶æ€ï¼Œåªç»˜åˆ¶ != 1 çš„éƒ¨åˆ†
 			glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 			glStencilMask(0x00);
-			glDisable(GL_DEPTH_TEST);    //±ß¿ò²»»á±»ÆäËûÎïÌå¸²¸Ç
+			glDisable(GL_DEPTH_TEST);    //è¾¹æ¡†ä¸ä¼šè¢«å…¶ä»–ç‰©ä½“è¦†ç›–
 
 			glTranslatef(boxPosition[i].x, boxPosition[i].y + 9.92f, boxPosition[i].z);
 			glRotatef(angle, 0.f, 1.f, 0.f);
@@ -562,11 +562,11 @@ void detectBreadBeingEaten(FPSCamera* cam) {
 		if (!isBreadEatenSet[i]) {
 			glm::vec3 breadPos(boxPosition[i].x, boxPosition[i].y + 10.f, boxPosition[i].z);
 
-			//ÏÈ¼ì²âÊÇ·ñ¿¿½üÃæ°ü
+			//å…ˆæ£€æµ‹æ˜¯å¦é è¿‘é¢åŒ…
 			if (cam->detectPlayerCloseToBread(breadPos, CloseToBreadDistance)) {
 				closeToBreadIndex = i;
 
-				//ÔÙ¼ì²âÊÇ·ñÄÜ³ÔµôÃæ°ü
+				//å†æ£€æµ‹æ˜¯å¦èƒ½åƒæ‰é¢åŒ…
 				if (cam->detectPlayerEatingBread(breadPos, EatBreadDistance)) {
 					isBreadEatenSet[i] = true;
 					eatenBreadNum++;
@@ -621,18 +621,18 @@ void applyBlackMaterial() {
 }
 
 #define FONT_ComicSansMS "Comic Sans MS"
-#define FONT_KaiTi "¿¬Ìå"
-#define FONT_FangSong "·ÂËÎ"
+#define FONT_KaiTi "æ¥·ä½“"
+#define FONT_FangSong "ä»¿å®‹"
 
 string GameTitle = "Bread Eating Game";
 string GameRule = "Game Rule: ";
 string GameRuleCtrl = "Control:\n   1. Press 'w/a/s/d' to move.\n   2. Press 'space' to jump.\n   3. Use 'mouse' to look around.";
 string GameRuleTarget = "Target:\n    Eat as more bread as possible!";
 string GameStartTitle = "Start";
-string GameMaker = "¡ª¡ªÓÉµÚ26×éÖÆ×÷";
+string GameMaker = "â€”â€”ç”±ç¬¬26ç»„åˆ¶ä½œ";
 string GameVictory = "Win!!";
 
-//Ñ¡Ôñfont
+//é€‰æ‹©font
 void selectFont(int size, int charset, const char* face) {
 	HFONT hFont = CreateFontA(size, 0, 0, 0, FW_MEDIUM, 0, 0, 0,
 		charset, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -646,7 +646,7 @@ void initEnString(const char* str) {
 
 }
 
-//»æÖÆÓ¢ÎÄÎÄ×Ö
+//ç»˜åˆ¶è‹±æ–‡æ–‡å­—
 #define MAX_CHAR 128
 void drawEnString(const char* str) {
 	static int isFirstCall = 1;
@@ -655,33 +655,33 @@ void drawEnString(const char* str) {
 	lists = glGenLists(MAX_CHAR);
 	wglUseFontBitmaps(wglGetCurrentDC(), 0, MAX_CHAR, lists);
 
-	//if (isFirstCall == 1) { // Èç¹ûÊÇµÚÒ»´Îµ÷ÓÃ£¬Ö´ĞĞ³õÊ¼»¯, ÎªÃ¿Ò»¸öASCII×Ö·û²úÉúÒ»¸öÏÔÊ¾ÁĞ±í
+	//if (isFirstCall == 1) { // å¦‚æœæ˜¯ç¬¬ä¸€æ¬¡è°ƒç”¨ï¼Œæ‰§è¡Œåˆå§‹åŒ–, ä¸ºæ¯ä¸€ä¸ªASCIIå­—ç¬¦äº§ç”Ÿä¸€ä¸ªæ˜¾ç¤ºåˆ—è¡¨
 	//	isFirstCall = 0;
 
-	//	// ÉêÇëMAX_CHAR¸öÁ¬ĞøµÄÏÔÊ¾ÁĞ±í±àºÅ
+	//	// ç”³è¯·MAX_CHARä¸ªè¿ç»­çš„æ˜¾ç¤ºåˆ—è¡¨ç¼–å·
 	//	lists = glGenLists(MAX_CHAR);
 
-	//	// °ÑÃ¿¸ö×Ö·ûµÄ»æÖÆÃüÁî¶¼×°µ½¶ÔÓ¦µÄÏÔÊ¾ÁĞ±íÖĞ
+	//	// æŠŠæ¯ä¸ªå­—ç¬¦çš„ç»˜åˆ¶å‘½ä»¤éƒ½è£…åˆ°å¯¹åº”çš„æ˜¾ç¤ºåˆ—è¡¨ä¸­
 	//	wglUseFontBitmaps(wglGetCurrentDC(), 0, MAX_CHAR, lists);
 	//}
 
-	// µ÷ÓÃÃ¿¸ö×Ö·û¶ÔÓ¦µÄÏÔÊ¾ÁĞ±í£¬»æÖÆÃ¿¸ö×Ö·û
+	// è°ƒç”¨æ¯ä¸ªå­—ç¬¦å¯¹åº”çš„æ˜¾ç¤ºåˆ—è¡¨ï¼Œç»˜åˆ¶æ¯ä¸ªå­—ç¬¦
 	for (; *str != '\0'; ++str)
 		glCallList(lists + *str);
 
 	glDeleteLists(lists, MAX_CHAR);
 }
 
-//»æÖÆÖĞÎÄÎÄ×Ö
+//ç»˜åˆ¶ä¸­æ–‡æ–‡å­—
 void drawCNString(const char* str) {
 	int len, i;
 	wchar_t* wstring;
 	HDC hDC = wglGetCurrentDC();
 	GLuint list = glGenLists(1);
 
-	// ¼ÆËã×Ö·ûµÄ¸öÊı
-	// Èç¹ûÊÇË«×Ö½Ú×Ö·ûµÄ£¨±ÈÈçÖĞÎÄ×Ö·û£©£¬Á½¸ö×Ö½Ú²ÅËãÒ»¸ö×Ö·û
-	// ·ñÔòÒ»¸ö×Ö½ÚËãÒ»¸ö×Ö·û
+	// è®¡ç®—å­—ç¬¦çš„ä¸ªæ•°
+	// å¦‚æœæ˜¯åŒå­—èŠ‚å­—ç¬¦çš„ï¼ˆæ¯”å¦‚ä¸­æ–‡å­—ç¬¦ï¼‰ï¼Œä¸¤ä¸ªå­—èŠ‚æ‰ç®—ä¸€ä¸ªå­—ç¬¦
+	// å¦åˆ™ä¸€ä¸ªå­—èŠ‚ç®—ä¸€ä¸ªå­—ç¬¦
 	len = 0;
 	for (i = 0; str[i] != '\0'; ++i) {
 		if (IsDBCSLeadByte(str[i]))
@@ -689,18 +689,18 @@ void drawCNString(const char* str) {
 		++len;
 	}
 
-	// ½«»ìºÏ×Ö·û×ª»¯Îª¿í×Ö·û
+	// å°†æ··åˆå­—ç¬¦è½¬åŒ–ä¸ºå®½å­—ç¬¦
 	wstring = (wchar_t*)malloc((len + 1) * sizeof(wchar_t));
 	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, str, -1, wstring, len);
 	wstring[len] = L'\0';
 
-	// Öğ¸öÊä³ö×Ö·û
+	// é€ä¸ªè¾“å‡ºå­—ç¬¦
 	for (i = 0; i < len; ++i) {
 		wglUseFontBitmapsW(hDC, wstring[i], 1, list);
 		glCallList(list);
 	}
 
-	// »ØÊÕËùÓĞÁÙÊ±×ÊÔ´
+	// å›æ”¶æ‰€æœ‰ä¸´æ—¶èµ„æº
 	free(wstring);
 	glDeleteLists(list, 1);
 }
@@ -708,7 +708,7 @@ void drawCNString(const char* str) {
 void drawMenuSceneUIText(FPSCamera* cam) {
 	char strBuffer[200];
 
-	//¶¥²¿±êÌâ¿ò
+	//é¡¶éƒ¨æ ‡é¢˜æ¡†
 	glPushMatrix();
 	applyWhiteMaterial();
 	glBegin(GL_POLYGON);
@@ -721,7 +721,7 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 
 	selectFont(40, ANSI_CHARSET, FONT_ComicSansMS);
 
-	//¶¥²¿±êÌâ
+	//é¡¶éƒ¨æ ‡é¢˜
 	glPushMatrix();
 	applyBlackMaterial();
 	glRasterPos3f(cam->cameraPos.x - 0.86f, cam->cameraPos.y + 1.48f, cam->cameraPos.z - 5.f);
@@ -731,13 +731,13 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 	applyWhiteMaterial();
 
 	selectFont(36, ANSI_CHARSET, FONT_ComicSansMS);
-	//ÓÎÏ·¹æÔò
+	//æ¸¸æˆè§„åˆ™
 	glPushMatrix();
 	glRasterPos3f(cam->cameraPos.x - 1.2f, cam->cameraPos.y + 0.8f, cam->cameraPos.z - 5.f);
 	drawEnString(GameRule.c_str());
 	glPopMatrix();
 
-	//¿ØÖÆ·½Ê½
+	//æ§åˆ¶æ–¹å¼
 	glPushMatrix();
 	glRasterPos3f(cam->cameraPos.x - 1.f, cam->cameraPos.y + 0.5f, cam->cameraPos.z - 5.f);
 	const char * GameRuleCtrlc = GameRuleCtrl.c_str();
@@ -745,7 +745,7 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*)strBuffer);
 	glPopMatrix();
 
-	//Ä¿±ê
+	//ç›®æ ‡
 	glPushMatrix();
 	glRasterPos3f(cam->cameraPos.x - 1.f, cam->cameraPos.y - 0.3f, cam->cameraPos.z - 5.f);
 	const char * GameRuleTargetc = GameRuleTarget.c_str();
@@ -753,7 +753,7 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*)strBuffer);
 	glPopMatrix();
 
-	//Start°´Å¥¿ò
+	//StartæŒ‰é’®æ¡†
 	glPushMatrix();
 	applyWhiteMaterial();
 	glBegin(GL_POLYGON);
@@ -765,7 +765,7 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 	glPopMatrix();
 
 	selectFont(40, ANSI_CHARSET, FONT_ComicSansMS);
-	//Start±êÌâ
+	//Startæ ‡é¢˜
 	glPushMatrix();
 	applyBlackMaterial();
 	glRasterPos3f(cam->cameraPos.x - 0.25f, cam->cameraPos.y - 1.24f, cam->cameraPos.z - 5.f);
@@ -783,9 +783,9 @@ void drawMenuSceneUIText(FPSCamera* cam) {
 
 }
 
-#define VictoryTextSizeLow 60    //ÉÁË¸ÎÄ×Ö×îĞ¡×ÖºÅ
-#define VictoryTextSizeUp 200    //ÉÁË¸ÎÄ×Ö×î´ó×ÖºÅ
-#define VictoryTextSizeGap 6     //ÉÁË¸ÎÄ×Ö·ÅËõ¹æÄ£
+#define VictoryTextSizeLow 60    //é—ªçƒæ–‡å­—æœ€å°å­—å·
+#define VictoryTextSizeUp 200    //é—ªçƒæ–‡å­—æœ€å¤§å­—å·
+#define VictoryTextSizeGap 6     //é—ªçƒæ–‡å­—æ”¾ç¼©è§„æ¨¡
 
 string GameSceneUIText = "Bread: ";
 static int victoryTextSize = VictoryTextSizeLow;
@@ -836,7 +836,7 @@ void drawGameSceneUIText(FPSCamera* cam, int x, int y) {
 	drawEnString(strBuffer);
 
 
-	//Ê¤Àû£¬»æÖÆ "Win!"
+	//èƒœåˆ©ï¼Œç»˜åˆ¶ "Win!"
 	if (eatenBreadNum == boxSum) {
 		victoryTextSize += dSize;
 		selectFont(victoryTextSize, ANSI_CHARSET, FONT_ComicSansMS);
@@ -874,7 +874,7 @@ void setupLights() {
 	glDepthFunc(GL_LEQUAL);			// The Type Of Depth Test To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-	// ÆôÓÃ¹âÕÕ¼ÆËã  
+	// å¯ç”¨å…‰ç…§è®¡ç®—  
 	glEnable(GL_LIGHTING);
 
 	glEnable(GL_LIGHT0);
